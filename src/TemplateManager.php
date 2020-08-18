@@ -16,6 +16,7 @@ class TemplateManager
 
     public function getTemplates() : array
     {
+        $templates = [];
         $files = glob(app_path($this->config['templates_path']).'/*.php');
 
         foreach($files as $file) {
