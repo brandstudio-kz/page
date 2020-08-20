@@ -3,6 +3,8 @@
 return [
     'page_class' => \BrandStudio\Page\Page::class,
     'templates_path' => 'Templates',
+    'prefix' => 'api/page',
+    'middleware' => 'api',
 
     'sidebar_icon' => 'fa fa-question',
 

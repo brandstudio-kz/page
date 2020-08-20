@@ -55,7 +55,7 @@ class Page extends Model
         $query->where('status', static::DRAFT);
     }
 
-    public function scopePublished($query)
+    public function scopeActive($query)
     {
         $query->where('status', static::PUBLISHED);
     }

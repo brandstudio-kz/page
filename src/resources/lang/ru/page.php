@@ -6,6 +6,7 @@ return [
 
     'name' => 'Название',
     'template' => 'Шаблон',
+    'slug' => 'Url',
 
     'status' => 'Статус',
     'draft' => 'Черновик',
@@ -13,6 +14,8 @@ return [
 
     'created_at' => 'Создан',
     'updated_at' => 'Обновлен',
+
+    'advanced' => 'Расширенные',
 
     'seo' => 'SEO оптимизация',
     'seo_title' => 'Заголовок',

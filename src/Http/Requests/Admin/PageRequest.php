@@ -1,6 +1,6 @@
 <?php
 
-namespace BrandStudio\Page\Http\Requests;
+namespace BrandStudio\Page\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,7 +28,7 @@ class PageRequest extends FormRequest
     {
         return [
             'name' => [
-                Rule::unique('pages', 'name')
+                Rule::unique('pages', 'name')->where('id', '<>', request()->id),
             ]
         ];
     }

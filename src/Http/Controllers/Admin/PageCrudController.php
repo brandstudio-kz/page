@@ -1,8 +1,8 @@
 <?php
 
-namespace BrandStudio\Page\Http\Controllers;
+namespace BrandStudio\Page\Http\Controllers\Admin;
 
-use BrandStudio\Page\Http\Requests\PageRequest;
+use BrandStudio\Page\Http\Requests\Admin\PageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use BrandStudio\Page\Facades\TemplateManager;
@@ -35,6 +35,10 @@ class PageCrudController extends CrudController
                 'label' => trans('brandstudio::page.status'),
                 'type' => 'select_from_array',
                 'options' => config('page.page_class')::getStatusOptions(),
+            ],
+            [
+                'name' => 'slug',
+                'label' => trans('brandstudio::page.slug'),
             ],
             [
                 'name' => 'updated_at',
@@ -91,6 +95,12 @@ class PageCrudController extends CrudController
 
         $template = TemplateManager::getTemplate($template);
         CRUD::addFields($template->allFields());
+
+        $this->crud->addField([
+            'name' => 'slug',
+            'label' => trans('brandstudio::page.slug'),
+            'tab' => trans('brandstudio::page.advanced'),
+        ]);
     }
 
     protected function setupUpdateOperation()
