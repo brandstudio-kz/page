@@ -60,10 +60,6 @@ class Page extends Model
         $query->where('status', static::PUBLISHED);
     }
 
-    public function scopeFindBySlugOrFail($query, string $slug)
-    {
-        return $query->where('slug', $slug)->firstOrFail();
-    }
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

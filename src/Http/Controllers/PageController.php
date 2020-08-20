@@ -16,8 +16,12 @@ class PageController extends Controller
 
     }
 
-    public function show(Request $request, Page $page)
+    public function show(Request $request, $page)
     {
+        $page = Page::active()->whereSlug($page)->first();
+        if (!$page) {
+            $page = Page::where('slug', 'home')->firstOrFail();
+        }
         return response()->json(new PageResource($page));
     }
 
