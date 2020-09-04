@@ -2,20 +2,22 @@
 
 namespace BrandStudio\Page;
 
+use BrandStudio\Publishable\Interfaces\Publishable;
+use BrandStudio\Identifiable\Interfaces\Identifiable;
 use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Cviebrock\EloquentSluggable\Sluggable as SluggableTrait;
-use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Builder;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\Sluggable;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\SluggableScopeHelpers;
 use BrandStudio\Page\Facades\TemplateManager;
+use BrandStudio\Publishable\Traits\Publishable as PublishableTrait;
+use BrandStudio\Identifiable\Traits\Identifiable as IdentifiableTrait;
 
-class Page extends Model
+class Page extends Model implements Publishable, Identifiable
 {
     use CrudTrait;
-    use SluggableTrait, SluggableScopeHelpers;
-
-    const DRAFT     = 0;
-    const PUBLISHED = 1;
+    use Sluggable, SluggableScopeHelpers;
+    use PublishableTrait, IdentifiableTrait;
 
     protected $table = 'pages';
     protected $guarded = ['id'];
@@ -29,7 +31,7 @@ class Page extends Model
     {
         return [
             'slug' => [
-                'source' => 'slug_source',
+                'source' => 'name',
                 'onUpdate' => true,
             ],
         ];
@@ -50,44 +52,12 @@ class Page extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
-    public function scopeDraft($query)
-    {
-        $query->where('status', static::DRAFT);
-    }
-
-    public function scopeActive($query)
-    {
-        $query->where('status', static::PUBLISHED);
-    }
 
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    public static function getStatusOptions() : array
-    {
-        return [
-            static::DRAFT => trans('brandstudio::page.draft'),
-            static::PUBLISHED => trans('brandstudio::page.published'),
-        ];
-    }
-
-
-    public function getSlugSourceAttribute()
-    {
-        if ($this->slug != '') {
-            return $this->slug;
-        }
-
-        return $this->name;
-    }
-
-
-    public function template()
-    {
-        return TemplateManager::getTemplate($this->template);
-    }
 
     /*
     |--------------------------------------------------------------------------

@@ -5,7 +5,7 @@
         "Brandstudio"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/brandstudio-kz/settings",
+    "homepage": "https://github.com/brandstudio-kz/page",
     "authors": [
         {
             "name": "Nurdaulet",
@@ -21,7 +21,9 @@
         }
     ],
     "require": {
-        "cviebrock/eloquent-sluggable": "^7.0"
+        "cviebrock/eloquent-sluggable": "^7.0",
+        "brandstudio/publishable": "^1.0",
+        "brandstudio/identifiable": "^1.0"
     },
     "autoload": {
         "psr-4": {
