@@ -36,6 +36,10 @@ class CreatePagesTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::table('pages', function(Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('pages')->onDelete('set null');
+        });
     }
 
     /**

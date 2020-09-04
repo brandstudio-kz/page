@@ -46,7 +46,15 @@ class Page extends Model implements Publishable, Identifiable
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function parent()
+    {
+        return $this->belongsTo(static::class, 'parent_id');
+    }
 
+    public function children()
+    {
+        return $this->hasMany(static::class, 'parent_id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

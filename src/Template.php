@@ -17,7 +17,6 @@ class Template
         return trans('template.'.static::key());
     }
 
-
     public function fields() : array
     {
         return [];

@@ -114,6 +114,6 @@ class PageCrudController extends CrudController
     protected function setupReorderOperation()
     {
         CRUD::set('reorder.label', 'name');
-        CRUD::set('reorder.max_level', 1);
+        CRUD::set('reorder.max_level', 2);
     }
 }
