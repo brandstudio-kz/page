@@ -22,8 +22,8 @@
     ],
     "require": {
         "cviebrock/eloquent-sluggable": "^7.0",
-        "brandstudio/publishable": "^1.0",
-        "brandstudio/identifiable": "^1.0"
+        "brandstudio/publishable": "dev-master",
+        "brandstudio/identifiable": "dev-master"
     },
     "autoload": {
         "psr-4": {
