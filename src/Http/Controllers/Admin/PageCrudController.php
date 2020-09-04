@@ -19,7 +19,7 @@ class PageCrudController extends CrudController
     {
         CRUD::setModel(config('page.page_class'));
         CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
-        CRUD::setEntityNameStrings(trans_choice('brandstudio::page.pages', 1), trans_choice('brandstudio::page.pages', 2));
+        CRUD::setEntityNameStrings(trans_choice('page::admin.pages', 1), trans_choice('page::admin.pages', 2));
         CRUD::orderBy('status', 'desc')->orderBy('lft');
     }
 
@@ -28,26 +28,26 @@ class PageCrudController extends CrudController
         CRUD::addColumns([
             [
                 'name' => 'name',
-                'label' => trans('brandstudio::page.name'),
+                'label' => trans('page::admin.name'),
             ],
             [
                 'name' => 'status',
-                'label' => trans('brandstudio::page.status'),
+                'label' => trans('page::admin.status'),
                 'type' => 'select_from_array',
                 'options' => config('page.page_class')::getStatusOptions(),
             ],
             [
                 'name' => 'slug',
-                'label' => trans('brandstudio::page.slug'),
+                'label' => trans('page::admin.slug'),
             ],
             [
                 'name' => 'updated_at',
-                'label' => trans('brandstudio::page.updated_at'),
+                'label' => trans('page::admin.updated_at'),
                 'type' => 'datetime',
             ],
             [
                 'name' => 'created_at',
-                'label' => trans('brandstudio::page.created_at'),
+                'label' => trans('page::admin.created_at'),
             ],
         ]);
     }
@@ -60,7 +60,8 @@ class PageCrudController extends CrudController
         CRUD::addFields([
             [
                 'name' => 'name',
-                'label' => trans('brandstudio::page.name'),
+                'label' => trans('page::admin.name'),
+                'type' => 'text',
                 'attributes' => [
                     'required' => true,
                 ],
@@ -70,7 +71,7 @@ class PageCrudController extends CrudController
             ],
             [
                 'name' => 'status',
-                'label' => trans('brandstudio::page.status'),
+                'label' => trans('page::admin.status'),
                 'type' => 'select2_from_array',
                 'options' => config('page.page_class')::getStatusOptions(),
                 'wrapperAttributes' => [
@@ -79,7 +80,7 @@ class PageCrudController extends CrudController
             ],
             [
                 'name' => 'template',
-                'label' => trans('brandstudio::page.template'),
+                'label' => trans('page::admin.template'),
                 'type' => 'select2_from_array',
                 'options' => TemplateManager::getTemplates(),
                 'allows_null' => true,
@@ -98,8 +99,9 @@ class PageCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'slug',
-            'label' => trans('brandstudio::page.slug'),
-            'tab' => trans('brandstudio::page.advanced'),
+            'label' => trans('page::admin.slug'),
+            'type' => 'text',
+            'tab' => trans('page::admin.advanced'),
         ]);
     }
 

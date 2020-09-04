@@ -33,30 +33,31 @@ class Template
         return [
             [
                 'name' => 'seo_title',
-                'label' => trans('brandstudio::page.seo_title'),
-                'tab' => trans('brandstudio::page.seo'),
+                'label' => trans('page::admin.seo_title'),
+                'type' => 'text',
+                'tab' => trans('page::admin.seo'),
             ],
             [
                 'name' => 'seo_description',
-                'label' => trans('brandstudio::page.seo_description'),
+                'label' => trans('page::admin.seo_description'),
                 'type' => 'textarea',
-                'tab' => trans('brandstudio::page.seo'),
+                'tab' => trans('page::admin.seo'),
             ],
             [
                 'name' => 'seo_keywords',
-                'label' => trans('brandstudio::page.seo_keywords'),
+                'label' => trans('page::admin.seo_keywords'),
                 'type' => 'textarea',
-                'hint' => trans('brandstudio::page.seo_keywords_hint'),
-                'tab' => trans('brandstudio::page.seo'),
+                'hint' => trans('page::admin.seo_keywords_hint'),
+                'tab' => trans('page::admin.seo'),
             ],
             [
                 'name' => 'seo_image',
-                'label' => trans('brandstudio::page.seo_image'),
+                'label' => trans('page::admin.seo_image'),
                 'type' => 'image',
                 'upload' => true,
                 'crop' => false,
                 'aspect_ratio' => 0,
-                'tab' => trans('brandstudio::page.seo'),
+                'tab' => trans('page::admin.seo'),
             ],
         ];
     }
