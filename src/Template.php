@@ -5,8 +5,6 @@ namespace BrandStudio\Page;
 class Template
 {
 
-    protected $seo = true;
-
     public static function key() : string
     {
         return strtolower(class_basename(static::class));
@@ -17,6 +15,30 @@ class Template
         return trans('template.'.static::key());
     }
 
+    public static function menu() : bool
+    {
+        return true;
+    }
+
+    public static function seo() : bool
+    {
+        return true;
+    }
+
+
+
+    public function columns() : array
+    {
+        return [];
+    }
+
+    public function allColumns() : array
+    {
+        return array_merge($this->columns(), static::seo() ? $this->seoColumns() : []);
+    }
+
+
+
     public function fields() : array
     {
         return [];
@@ -24,8 +46,10 @@ class Template
 
     public function allFields() : array
     {
-        return array_merge($this->fields(), $this->seoFields());
+        return array_merge($this->fields(), static::seo() ? $this->seoFields() : []);
     }
+
+
 
     public function seoFields() : array
     {
@@ -57,6 +81,35 @@ class Template
                 'crop' => false,
                 'aspect_ratio' => 0,
                 'tab' => trans('page::admin.seo'),
+            ],
+        ];
+    }
+
+
+
+    public function seoColumns() : array
+    {
+        return [
+            [
+                'name' => 'seo_title',
+                'label' => trans('admin.seo_title'),
+            ],
+            [
+                'name' => 'seo_image',
+                'label' => trans('admin.seo_image'),
+                'type' => 'image',
+                'width' => '150px',
+                'height' => 'auto',
+            ],
+            [
+                'name' => 'seo_description',
+                'label' => trans('admin.seo_description'),
+                'type' => 'markdown',
+            ],
+            [
+                'name' => 'seo_keywords',
+                'label' => trans('admin.seo_keywords'),
+                'type' => 'markdown',
             ],
         ];
     }

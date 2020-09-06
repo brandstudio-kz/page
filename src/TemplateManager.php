@@ -14,14 +14,17 @@ class TemplateManager
         $this->config = $config;
     }
 
-    public function getTemplates() : array
+    public function getTemplates($menu = null, $seo = null) : array
     {
         $templates = [];
         $files = glob(app_path($this->config['templates_path']).'/*.php');
 
         foreach($files as $file) {
             $template = $this->class(basename($file));
-            $templates[$template::key()] = $template::name();
+
+            if ((empty($menu) || $template::menu() == $menu) && (empty($seo) || $template::seo() == $seo)) {
+                $templates[$template::key()] = $template::name();
+            }
         }
 
         return $templates;

@@ -10,6 +10,7 @@ use BrandStudio\Page\Facades\TemplateManager;
 class PageCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -20,7 +21,7 @@ class PageCrudController extends CrudController
         CRUD::setModel(config('page.page_class'));
         CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
         CRUD::setEntityNameStrings(trans_choice('page::admin.pages', 1), trans_choice('page::admin.pages', 2));
-        CRUD::orderBy('status', 'desc')->orderBy('lft');
+        CRUD::orderBy('status', 'desc')->orderBy('parent_id')->orderBy('lft');
     }
 
     protected function setupListOperation()
@@ -50,6 +51,18 @@ class PageCrudController extends CrudController
                 'label' => trans('page::admin.created_at'),
             ],
         ]);
+    }
+
+    protected function setupShowOperation()
+    {
+        CRUD::set('show.setFromDb', false);
+        $entry = $this->crud->getEntry(request()->id);
+        $this->setupListOperation();
+
+        if ($entry->template) {
+            $template = TemplateManager::getTemplate($entry->template);
+            CRUD::addColumns($template->allColumns());
+        }
     }
 
     protected function setupCreateOperation()
@@ -111,9 +124,14 @@ class PageCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
+
     protected function setupReorderOperation()
     {
         CRUD::set('reorder.label', 'name');
         CRUD::set('reorder.max_level', 2);
+        CRUD::addClause('where', function($query) {
+            $query->whereNull('template')->orWhereIn('template', array_keys(TemplateManager::getTemplates(true)));
+        });
     }
+
 }
