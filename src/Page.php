@@ -33,7 +33,7 @@ class Page extends Model implements Publishable, Identifiable
     {
         return [
             'slug' => [
-                'source' => 'name',
+                'source' => 'slug_or_name',
                 'onUpdate' => true,
             ],
         ];
@@ -68,7 +68,13 @@ class Page extends Model implements Publishable, Identifiable
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-
+    public function getSlugOrNameAttribute()
+    {
+        if ($this->slug) {
+            return $this->slug;
+        }
+        return $this->identifiableName;
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
