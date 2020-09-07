@@ -12,15 +12,17 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\SluggableScopeHelpers;
 use BrandStudio\Page\Facades\TemplateManager;
 use BrandStudio\Publishable\Traits\Publishable as PublishableTrait;
 use BrandStudio\Identifiable\Traits\Identifiable as IdentifiableTrait;
+use BrandStudio\File\Traits\HasFile;
 
 class Page extends Model implements Publishable, Identifiable
 {
-    use CrudTrait;
+    use CrudTrait, HasFile;
     use Sluggable, SluggableScopeHelpers;
     use PublishableTrait, IdentifiableTrait;
 
     protected $table = 'pages';
     protected $guarded = ['id'];
+    protected $image_fields = ['seo_image'];
 
     /*
     |--------------------------------------------------------------------------

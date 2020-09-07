@@ -22,6 +22,7 @@
     ],
     "require": {
         "cviebrock/eloquent-sluggable": "^7.0",
+        "brandstudio/file": "^1.0",
         "brandstudio/publishable": "dev-master",
         "brandstudio/identifiable": "dev-master"
     },
