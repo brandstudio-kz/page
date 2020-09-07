@@ -2,23 +2,14 @@
 
 namespace BrandStudio\Page;
 
-use BrandStudio\Publishable\Interfaces\Publishable;
-use BrandStudio\Identifiable\Interfaces\Identifiable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\Sluggable;
-use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\SluggableScopeHelpers;
+use BrandStudio\Starter\Models\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use BrandStudio\Page\Facades\TemplateManager;
-use BrandStudio\Publishable\Traits\Publishable as PublishableTrait;
-use BrandStudio\Identifiable\Traits\Identifiable as IdentifiableTrait;
-use BrandStudio\File\Traits\HasFile;
 
-class Page extends Model implements Publishable, Identifiable
+class Page extends Model
 {
-    use CrudTrait, HasFile;
     use Sluggable, SluggableScopeHelpers;
-    use PublishableTrait, IdentifiableTrait;
 
     protected $table = 'pages';
     protected $guarded = ['id'];
