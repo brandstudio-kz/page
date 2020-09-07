@@ -21,7 +21,7 @@ class CreatePagesTable extends Migration
             $table->string('template')->nullable();
             $table->json('data')->nullable();
 
-            $table->tinyInteger('status')->default(config('page.page_class')::DRAFT);
+            $table->tinyInteger('status')->default(config('page.page_class')::PUBLISHED);
 
             $table->string('seo_title')->nullable();
             $table->string('seo_image')->nullable();
