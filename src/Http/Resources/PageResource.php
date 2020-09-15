@@ -3,6 +3,7 @@
 namespace BrandStudio\Page\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use BrandStudio\Page\Facades\TemplateManager;
 
 class PageResource extends JsonResource
 {
@@ -14,15 +15,6 @@ class PageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'slug' => $this->slug,
-            'name' => $this->name,
-
-            'seo_title' => $this->seo_title ?? $this->name,
-            'seo_image' => $this->seo_image,
-            'seo_description' => $this->seo_description,
-            'seo_keywords' => $this->seo_keywords,
-        ];
+        return TemplateManager::getTemplate($this->remplate)->preparePage($this);
     }
 }

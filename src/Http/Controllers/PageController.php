@@ -4,24 +4,37 @@ namespace BrandStudio\Page\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use BrandStudio\Page\Page;
+
+use BrandStudio\Page\Facades\TemplateManager;
 
 use BrandStudio\Page\Http\Resources\PageResource;
+use BrandStudio\Page\Http\Resources\PageSmallResource;
+use BrandStudio\Page\Http\Resources\MenuItemResource;
 
 class PageController extends Controller
 {
 
     public function index(Request $request)
     {
+        $pages = config('page.page_class')::active()->whereNotNull('template')->get()->map(function($page) {
+            return new PageSmallResource($page);
+        })->keyBy('template');
 
+        $menu = config('page.page_class')::active()->where(function($query) {
+            $query->whereNull('template')->orWhereIn('template', array_keys(TemplateManager::getTemplates(true)));
+        })->whereDoesntHave('parent')->get()->map(function($page) {
+            return new MenuItemResource($page);
+        });
+
+        return [
+            'pages' => $pages,
+            'menu' => $menu
+        ];
     }
 
     public function show(Request $request, $page)
     {
-        $page = Page::active()->whereSlug($page)->first();
-        if (!$page) {
-            $page = Page::where('slug', 'home')->firstOrFail();
-        }
+        $page = config('page.page_class')::active()->whereSlug($page)->firstOrFail();
         return response()->json(new PageResource($page));
     }
 

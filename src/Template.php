@@ -5,6 +5,20 @@ namespace BrandStudio\Page;
 class Template
 {
 
+    public function preparePage($page) : array
+    {
+        return [
+            'name' => $page->name,
+            'slug' => $page->slug,
+            'template' => $page->template,
+
+            'seo_title' => $page->seo_title ?? $this->name,
+            'seo_image' => $page->seo_image,
+            'seo_description' => $page->seo_description,
+            'seo_keywords' => $page->seo_keywords,
+        ];
+    }
+
     public static function key() : string
     {
         return strtolower(class_basename(static::class));

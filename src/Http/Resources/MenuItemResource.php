@@ -4,7 +4,7 @@ namespace BrandStudio\Page\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PageSmallResource extends JsonResource
+class MenuItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,9 @@ class PageSmallResource extends JsonResource
         return [
             'name' => $this->name,
             'slug' => $this->slug,
-            'template' => $this->template,
+            'children' => $this->children->map(function($page) {
+                return new PageSmallResource($page);
+            }),
         ];
     }
 }
