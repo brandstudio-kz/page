@@ -15,6 +15,6 @@ class PageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return TemplateManager::getTemplate($this->remplate)->preparePage($this);
+        return TemplateManager::getTemplate($this->template)->preparePage($this);
     }
 }
