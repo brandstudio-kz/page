@@ -20,20 +20,7 @@ class Page extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function sluggable() : array
-    {
-        return [
-            'slug' => [
-                'source' => 'slug_or_name',
-                'onUpdate' => true,
-            ],
-        ];
-    }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -59,13 +46,7 @@ class Page extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    public function getSlugOrNameAttribute()
-    {
-        if ($this->slug) {
-            return $this->slug;
-        }
-        return $this->identifiableName;
-    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
