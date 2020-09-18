@@ -3,15 +3,18 @@
 namespace BrandStudio\Page;
 
 use BrandStudio\Page\Template;
+use Illuminate\Container\Container;
 
 class TemplateManager
 {
 
     protected $config;
+    protected $container;
 
     public function __construct(array $config)
     {
         $this->config = $config;
+        $this->container = Container::getInstance();
     }
 
     public function getTemplates($menu = null, $seo = null) : array
@@ -34,7 +37,7 @@ class TemplateManager
     {
         if($template) {
             $class = $this->class($template);
-            return new $class;
+            return $this->container->make($class);
         }
         return $this->defaultTemplate();
     }
@@ -46,7 +49,7 @@ class TemplateManager
 
     public function defaultTemplate() : Template
     {
-        return new Template;
+        return $this->container->make(Template::class);
     }
 
 }
