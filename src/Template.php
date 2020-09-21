@@ -8,6 +8,7 @@ class Template
     public function preparePage($page) : array
     {
         return [
+            'id' => $page->id,
             'name' => $page->name,
             'slug' => $page->slug,
             'template' => $page->template,

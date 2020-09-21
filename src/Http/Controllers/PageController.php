@@ -24,7 +24,7 @@ class PageController extends Controller
             $query->whereNull('template')->orWhereIn('template', array_keys(TemplateManager::getTemplates(true)));
         })->whereDoesntHave('parent')->get()->map(function($page) {
             return new MenuItemResource($page);
-        });
+        })->keyBy('id');
 
         return [
             'pages' => $pages,
