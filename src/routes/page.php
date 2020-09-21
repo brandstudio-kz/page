@@ -18,6 +18,6 @@ Route::group([
 ], function() {
 
     Route::get('', 'PageController@index');
-    Route::get('{page}', 'PageController@show')->where('page', '(.*)');
+    Route::get('{page}', 'PageController@show');
 
 });
