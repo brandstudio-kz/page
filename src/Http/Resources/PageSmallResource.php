@@ -15,6 +15,7 @@ class PageSmallResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'parent_id' => $this->parent_id,
             'name' => $this->name,
             'slug' => $this->slug,
             'template' => $this->template,
