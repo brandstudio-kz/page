@@ -9,6 +9,7 @@ class Template
     {
         return [
             'id' => $page->id,
+            'parent_id' => $page->parent_id,
             'name' => $page->name,
             'slug' => $page->slug,
             'template' => $page->template,
