@@ -16,15 +16,31 @@ class PageController extends Controller
 
     public function index(Request $request)
     {
-        $pages = config('page.page_class')::active()->whereNotNull('template')->get()->map(function($page) {
-            return new PageSmallResource($page);
-        })->keyBy('template');
+        $pages = config('page.page_class')::active()
+                ->whereNotNull('template')
+                ->get()
+                ->map(function($page) {
+                    return new PageSmallResource($page);
+                })
+                ->keyBy('template');
 
-        $menu = config('page.page_class')::active()->where(function($query) {
-            $query->whereNull('template')->orWhereIn('template', array_keys(TemplateManager::getTemplates(true)));
-        })->whereDoesntHave('parent')->get()->map(function($page) {
-            return new MenuItemResource($page);
-        })->keyBy('id');
+        $menu = config('page.page_class')::active()
+                ->orderBy('lft')
+                ->where(function($query) {
+                    $query->whereNull('template')
+                          ->orWhereIn('template', array_keys(TemplateManager::getTemplates(true)));
+                })
+                ->whereDoesntHave('parent')
+                ->with([
+                    'children' => function($query) {
+                        $query->active()->orderBy('lft');
+                    }
+                ])
+                ->get()
+                ->map(function($page) {
+                    return new MenuItemResource($page);
+                })
+                ->keyBy('id');
 
         return [
             'pages' => $pages,
