@@ -18,6 +18,7 @@ class MenuItemResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'template' => $this->template,
             'children' => $this->children->map(function($page) {
                 return new PageSmallResource($page);
             }),
