@@ -21,7 +21,7 @@ class MenuItemResource extends JsonResource
             'slug' => $this->slug,
             'template' => $this->template,
             'children' => $this->children->map(function($page) {
-                return new PageSmallResource($page);
+                return new MenuItemResource($page);
             }),
         ], $this->template ? TemplateManager::getTemplate($this->template)->prepareMenuItem($this) : []);
     }

@@ -63,7 +63,11 @@ class Template
         if (static::fake()) {
             return [];
         }
-        return array_merge($this->columns(), static::seo() ? $this->seoColumns() : []);
+        return array_map(function($column) {
+            $column['fake'] = true;
+            $column['store_in'] = 'data';
+            return $column;
+        }, array_merge($this->columns(), static::seo() ? $this->seoColumns() : []));
     }
 
 
@@ -78,7 +82,11 @@ class Template
         if (static::fake()) {
             return [];
         }
-        return array_merge($this->fields(), static::seo() ? $this->seoFields() : []);
+        return array_map(function($field) {
+            $field['fake'] = true;
+            $field['store_in'] = 'data';
+            return $field;
+        }, array_merge($this->fields(), static::seo() ? $this->seoFields() : []));
     }
 
 
