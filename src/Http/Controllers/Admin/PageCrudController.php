@@ -110,7 +110,9 @@ class PageCrudController extends CrudController
         $template = TemplateManager::getTemplate($template);
         CRUD::addFields($template->allFields());
 
-        if ($template->key() != 'home') {
+        if($template->fake()) {
+            CRUD::removeField('template');
+        } else if ($template->key() != 'home') {
             $this->crud->addField([
                 'name' => 'slug',
                 'label' => trans('page::admin.slug'),

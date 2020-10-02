@@ -36,6 +36,11 @@ class Template
         return true;
     }
 
+    public static function fake() : bool
+    {
+        return false;
+    }
+
     public static function seo() : bool
     {
         return true;
@@ -50,6 +55,9 @@ class Template
 
     public function allColumns() : array
     {
+        if (static::fake()) {
+            return [];
+        }
         return array_merge($this->columns(), static::seo() ? $this->seoColumns() : []);
     }
 
@@ -62,6 +70,9 @@ class Template
 
     public function allFields() : array
     {
+        if (static::fake()) {
+            return [];
+        }
         return array_merge($this->fields(), static::seo() ? $this->seoFields() : []);
     }
 

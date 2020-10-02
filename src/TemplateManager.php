@@ -17,15 +17,18 @@ class TemplateManager
         $this->container = Container::getInstance();
     }
 
-    public function getTemplates($menu = null, $seo = null) : array
+    public function getTemplates($menu = null, $seo = null, $fake = false) : array
     {
         $templates = [];
         $files = glob(app_path($this->config['templates_path']).'/*.php');
 
         foreach($files as $file) {
             $template = $this->class(basename($file));
-
-            if ((empty($menu) || $template::menu() == $menu) && (empty($seo) || $template::seo() == $seo)) {
+            if (
+                ($fake || !$template::fake()) &&
+                (empty($menu) || $template::menu() == $menu) &&
+                (empty($seo) || $template::seo() == $seo)
+            ) {
                 $templates[$template::key()] = $template::name();
             }
         }
