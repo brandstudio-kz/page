@@ -3,6 +3,7 @@
 namespace BrandStudio\Page\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use BrandStudio\Page\Facades\TemplateManager;
 
 class MenuItemResource extends JsonResource
 {
@@ -14,7 +15,7 @@ class MenuItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return array_merge([
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
@@ -22,6 +23,6 @@ class MenuItemResource extends JsonResource
             'children' => $this->children->map(function($page) {
                 return new PageSmallResource($page);
             }),
-        ];
+        ], $this->template ? TemplateManager::getTemplate($this->template)->prepareMenuItem($this) : []);
     }
 }

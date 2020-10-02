@@ -21,6 +21,11 @@ class Template
         ];
     }
 
+    public function prepareMenuItem($page) : array
+    {
+        return [];
+    }
+
     public static function key() : string
     {
         return strtolower(class_basename(static::class));
