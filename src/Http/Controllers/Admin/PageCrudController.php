@@ -95,7 +95,7 @@ class PageCrudController extends CrudController
                 'name' => 'template',
                 'label' => trans('page::admin.template'),
                 'type' => 'select2_from_array',
-                'options' => TemplateManager::getTemplates(),
+                'options' => TemplateManager::getTemplates(null, null, false),
                 'allows_null' => true,
                 'value' => $template,
                 'attributes' => [

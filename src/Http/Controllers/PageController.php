@@ -39,8 +39,7 @@ class PageController extends Controller
                 ->get()
                 ->map(function($page) {
                     return new MenuItemResource($page);
-                })
-                ->keyBy('id');
+                });
 
         return [
             'pages' => $pages,

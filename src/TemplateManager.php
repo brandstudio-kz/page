@@ -17,7 +17,7 @@ class TemplateManager
         $this->container = Container::getInstance();
     }
 
-    public function getTemplates($menu = null, $seo = null, $fake = false) : array
+    public function getTemplates($menu = null, $seo = null, $fake = true) : array
     {
         $templates = [];
         $files = glob(app_path($this->config['templates_path']).'/*.php');
