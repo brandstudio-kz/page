@@ -14,8 +14,8 @@ class Template
             'slug' => $page->slug,
             'template' => $page->template,
 
-            'seo_title' => $page->seo_title ?? $page->name,
-            'seo_image' => $page->seo_image,
+            'seo_title' => $page->seo_title ? $page->seo_title : $page->name,
+            'seo_image' => $page->seo_image ? $page->seo_image : ($page->image ?? $page->images[0] ?? null),
             'seo_description' => $page->seo_description,
             'seo_keywords' => $page->seo_keywords,
         ];
