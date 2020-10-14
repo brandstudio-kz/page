@@ -64,8 +64,10 @@ class Template
             return [];
         }
         return array_map(function($column) {
-            $column['fake'] = true;
-            $column['store_in'] = 'data';
+            if (!\Str::startsWith($column['name'], 'seo_')) {
+                $column['fake'] = true;
+                $column['store_in'] = 'data';
+            }
             return $column;
         }, array_merge($this->columns(), static::seo() ? $this->seoColumns() : []));
     }
@@ -83,8 +85,10 @@ class Template
             return [];
         }
         return array_map(function($field) {
-            $field['fake'] = true;
-            $field['store_in'] = 'data';
+            if (!\Str::startsWith($field['name'], 'seo_')) {
+                $field['fake'] = true;
+                $field['store_in'] = 'data';
+            }
             return $field;
         }, array_merge($this->fields(), static::seo() ? $this->seoFields() : []));
     }
