@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "cviebrock/eloquent-sluggable": "^7.0",
+        "cviebrock/eloquent-sluggable": "^8.0",
         "brandstudio/starter": "^1.0"
     },
     "autoload": {
